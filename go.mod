@@ -1,4 +1,4 @@
-module alexedwards.net/snippetbox
+module AlikhanAitbayev.net/snippetbox
 
 go 1.19
 

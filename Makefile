@@ -15,3 +15,4 @@ stop:
 # 	MYSQL_USER=snippet
 # 	MYSQL_PASSWORD=123
 # 	MYSQL_DATABASE=snippetbox
+# sleep 20 && docker exec -i snippetbox-mysql mysql -uroot -proot snippetbox < mysql_dump.sql
