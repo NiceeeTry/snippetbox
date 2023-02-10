@@ -30,7 +30,7 @@ CREATE TABLE `snippets` (
   `expires` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_snippets_created` (`created`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +39,7 @@ CREATE TABLE `snippets` (
 
 LOCK TABLES `snippets` WRITE;
 /*!40000 ALTER TABLE `snippets` DISABLE KEYS */;
+INSERT INTO `snippets` VALUES (1,'An old silent pond','An old silent pond...\nA frog jumps into the pond,\nsplash! Silence again.\n\n– Matsuo Bashō','2023-02-10 06:16:50','2024-02-10 06:16:50'),(2,'Over the wintry forest','Over the wintry\nforest, winds howl in rage\nwith no leaves to blow.\n\n– Natsume Soseki','2023-02-10 06:16:50','2024-02-10 06:16:50'),(3,'First autumn morning','First autumn morning\nthe mirror I stare into\nshows my father\'s face.\n\n– Murakami Kijo','2023-02-10 06:16:50','2023-02-17 06:16:50');
 /*!40000 ALTER TABLE `snippets` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-07 17:07:59
+-- Dump completed on 2023-02-10 10:10:28
