@@ -3,7 +3,6 @@ package main
 import (
 	"errors"
 	"fmt"
-	"html/template"
 	"net/http"
 	"strconv"
 
@@ -20,24 +19,9 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 		app.serverError(w, err)
 		return
 	}
-	// Create an instance of a templateData struct holding the slice of
-	// snippets.
-	data := &templateData{Snippets: s}
-	files := []string{
-		"./ui/html/home.html",
-		"./ui/html/base.html",
-		"./ui/html/footer.html",
-	}
-	ts, err := template.ParseFiles(files...)
-	if err != nil {
-		app.serverError(w, err)
-		return
-	}
-	// Pass in the templateData struct when executing the template.
-	err = ts.Execute(w, data)
-	if err != nil {
-		app.serverError(w, err)
-	}
+	app.render(w, r, "home.html", &templateData{
+		Snippets: s,
+	})
 }
 
 func (app *application) showSnippet(w http.ResponseWriter, r *http.Request) {
@@ -55,23 +39,9 @@ func (app *application) showSnippet(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
-	// Create an instance of a templateData struct holding the snippet data.
-	data := &templateData{Snippet: s}
-	files := []string{
-		"./ui/html/show.html",
-		"./ui/html/base.html",
-		"./ui/html/footer.html",
-	}
-	ts, err := template.ParseFiles(files...)
-	if err != nil {
-		app.serverError(w, err)
-		return
-	}
-	// Pass in the templateData struct when executing the template.
-	err = ts.Execute(w, data)
-	if err != nil {
-		app.serverError(w, err)
-	}
+	app.render(w, r, "show.html", &templateData{
+		Snippet: s,
+	})
 }
 
 func (app *application) createSnippet(w http.ResponseWriter, r *http.Request) {
