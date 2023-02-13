@@ -24,7 +24,7 @@
     </html>
 {{end}}
 {{define "footer"}}
-    <footer>Powered by <a href='https://golang.org/'>Go</a></footer>
+    <footer>Powered by <a href='https://golang.org/'>Go</a> in {{.CurrentYear}}</footer>
 {{end}}
 {{template "base" .}}
     {{define "title"}}Home{{end}}
@@ -40,7 +40,7 @@
         {{range .Snippets}}
         <tr>
             <td><a href='/snippet?id={{.ID}}'>{{.Title}}</a></td>
-            <td>{{.Created}}</td>
+            <td>{{humanDate .Created}}</td>
             <td>#{{.ID}}</td>
         </tr>
         {{end}}

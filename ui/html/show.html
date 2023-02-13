@@ -24,7 +24,7 @@
     </html>
 {{end}}
 {{define "footer"}}
-    <footer>Powered by <a href='https://golang.org/'>Go</a></footer>
+    <footer>Powered by <a href='https://golang.org/'>Go</a> in {{.CurrentYear}}</footer>
 {{end}}
 {{template "base" .}}
     {{define "title"}}Snippet #{{.Snippet.ID}}{{end}}
@@ -35,11 +35,10 @@
                 <strong>{{.Title}}</strong>
                 <span>#{{.ID}}</span>
             </div>
-            <!-- {{len nil}}  -->
             <pre><code>{{.Content}}</code></pre>
             <div class='metadata'>
-                <time>Created: {{.Created}}</time>
-                <time>Expires: {{.Expires}}</time>
+                <time>Created: {{humanDate .Created}}</time>
+                <time>Expires: {{humanDate .Expires}}</time>
             </div>
         </div>
     {{end}}
