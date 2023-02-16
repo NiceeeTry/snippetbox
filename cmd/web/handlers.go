@@ -41,6 +41,7 @@ func (app *application) showSnippet(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
+
 	app.render(w, r, "show.html", &templateData{
 		Snippet: s,
 	})
@@ -78,7 +79,7 @@ func (app *application) createSnippet(w http.ResponseWriter, r *http.Request) {
 		app.serverError(w, err)
 		return
 	}
-
+	app.session.Put(r, "flash", "Snippet successfully created!")
 	// title := r.PostForm.Get("title")
 	// content := r.PostForm.Get("content")
 	// expires := r.PostForm.Get("expires")
