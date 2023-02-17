@@ -1,3 +1,36 @@
+{{template "base" .}}
+{{define "title"}}Signup{{end}}
+{{define "main"}}
+    <form action='/user/signup' method='POST' novalidate>
+        {{with .Form}}
+        <div>
+            <label>Name:</label>
+                {{with .Errors.Get "name"}}
+                    <label class='error'>{{.}}</label>
+                {{end}}
+            <input type='text' name='name' value='{{.Get "name"}}'>
+        </div>
+        <div>
+            <label>Email:</label>
+                {{with .Errors.Get "email"}}
+                    <label class='error'>{{.}}</label>
+                {{end}}
+            <input type='email' name='email' value='{{.Get "email"}}'>
+        </div>
+        <div>
+            <label>Password:</label>
+                {{with .Errors.Get "password"}}
+                <label class='error'>{{.}}</label>
+                {{end}}
+            <input type='password' name='password'>
+        </div>
+        <div>
+            <input type='submit' value='Signup'>
+        </div>
+        {{end}}
+    </form>
+{{end}}
+
 {{define "base"}}
 <!doctype html>
     <html lang='en'>
@@ -38,27 +71,4 @@
 {{end}}
 {{define "footer"}}
     <footer>Powered by <a href='https://golang.org/'>Go</a> in {{.CurrentYear}}</footer>
-{{end}}
-{{template "base" .}}
-    {{define "title"}}Home{{end}}
-    {{define "main"}}
-    <h2>Latest Snippets</h2>
-    {{if .Snippets}}    
-    <table>
-        <tr>
-            <th>Title</th>
-            <th>Created</th>
-            <th>ID</th>
-        </tr>
-        {{range .Snippets}}
-        <tr>
-            <td><a href='/snippet/{{.ID}}'>{{.Title}}</a></td>
-            <td>{{humanDate .Created}}</td>
-            <td>#{{.ID}}</td>
-        </tr>
-        {{end}}
-    </table>
-    {{else}}
-        <p>There's nothing to see here... yet!</p>
-    {{end}}
 {{end}}
