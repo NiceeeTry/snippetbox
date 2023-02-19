@@ -1,7 +1,9 @@
 {{template "base" .}}
-    {{define "title"}}Create a New Snippet{{end}}
+{{define "title"}}Create a New Snippet{{end}}
 {{define "main"}}
 <form action='/snippet/create' method='POST'>
+    <!-- Include the CSRF token -->
+    <input type='hidden' name='csrf_token' value='{{.CSRFToken}}'>
     {{with .Form}}
         <div>
             <label>Title:</label>
@@ -20,17 +22,17 @@
         <div>
             <label>Delete in:</label>
             {{with .Errors.Get "expires"}}
-            <label class='error'>{{.}}</label>
+               <label class='error'>{{.}}</label>
             {{end}}
             {{$exp := or (.Get "expires") "365"}}
-                <input type='radio' name='expires' value='365' {{if (eq $exp "365")}}checked{{end}}> One Year
-                <input type='radio' name='expires' value='7' {{if (eq $exp "7")}}checked{{end}}> One Week
-                <input type='radio' name='expires' value='1' {{if (eq $exp "1")}}checked{{end}}> One Day
+            <input type='radio' name='expires' value='365' {{if (eq $exp "365")}}checked{{end}}> One Year
+            <input type='radio' name='expires' value='7' {{if (eq $exp "7")}}checked{{end}}> One Week
+            <input type='radio' name='expires' value='1' {{if (eq $exp "1")}}checked{{end}}> One Day
         </div>
         <div>
             <input type='submit' value='Publish snippet'>
         </div>
-    {{end}}
+        {{end}}
 </form>
 {{end}}
 
@@ -39,41 +41,48 @@
 
 {{define "base"}}
 <!doctype html>
-    <html lang='en'>
-        <head>
-            <meta charset='utf-8'>
-            <title>{{template "title" .}} - Snippetbox</title>
-            <link rel='stylesheet' href='/static/css/main.css'>
-            <link rel='shortcut icon' href='/static/img/favicon.ico' type='image/x-icon'>
-            <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700'>
-        </head>
-        <body>
-            <header>
-                <h1><a href='/'>Snippetbox</a></h1>
-            </header>
-            <nav>
-                <div>
-                    <a href='/'>Home</a>
+<html lang='en'>
+    <head>
+        <meta charset='utf-8'>
+        <title>{{template "title" .}} - Snippetbox</title>
+        <link rel='stylesheet' href='/static/css/main.css'>
+        <link rel='shortcut icon' href='/static/img/favicon.ico' type='image/x-icon'>
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700'>
+    </head>
+    <body>
+        <header>
+            <h1><a href='/'>Snippetbox</a></h1>
+        </header>
+        <nav>
+            <div>
+                <a href='/'>Home</a>
+                {{if .IsAuthenticated}}
                     <a href='/snippet/create'>Create snippet</a>
-                </div>
-                <div>
+                {{end}}
+            </div>
+            <div>
+                {{if .IsAuthenticated}}
+                    <form action='/user/logout' method='POST'>
+<!-- Include the CSRF token -->
+                        <input type='hidden' name='csrf_token' value='{{.CSRFToken}}'>
+                        <button>Logout</button>
+                    </form>
+                {{else}}
                     <a href='/user/signup'>Signup</a>
                     <a href='/user/login'>Login</a>
-                    <form action='/user/logout' method='POST'>
-                    <button>Logout</button>
-                    </form>
-                </div>
-            </nav>
-            <main>
-                {{with .Flash}}
-                    <div class="flash">{{.}}</div>
                 {{end}}
-                {{template "main" .}}
-            </main>
-            {{template "footer" .}}
+            </div>
+        </nav>
+        <main>
+        {{with .Flash}}
+            <div class='flash '>{{.}}</div>
+        {{end}}
+        {{template "main" .}}
+        </main>
+        {{template "footer" .}}
             <script src="/static/js/main.js" type="text/javascript"></script>
-        </body>
-    </html>
+    </body>
+</html>
 {{end}}
 
 {{define "footer"}}

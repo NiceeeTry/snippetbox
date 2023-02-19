@@ -14,11 +14,13 @@ var functions = template.FuncMap{
 }
 
 type templateData struct {
-	Snippet     *models.Snippet
-	Snippets    []*models.Snippet
-	CurrentYear int
-	Form        *forms.Form
-	Flash       string
+	Snippet         *models.Snippet
+	Snippets        []*models.Snippet
+	CurrentYear     int
+	Form            *forms.Form
+	Flash           string
+	IsAuthenticated bool
+	CSRFToken       string
 	// FormData url.Values
 	// FormErrors map[string]string
 }
